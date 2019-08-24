@@ -43,6 +43,8 @@ Locate Element By:
 	Link:
 	Class Name:
 	CSS Syntax:
+		#id & htmlelement#id
+		.class & htmlelement.class
 
 //input[@type='submit']
 //input[@name='firsname' or @aria-label='Firstname']
@@ -57,3 +59,5 @@ Locate Element By:
 //input[@type='email']/parent::td/parent::tr/parent::tbody/parent::table
 //input[@id='tab2']/following-sibling::label
 //input[@id='email']/parent::td/following-sibling::td[1]/input
+
+from selenium.webdriver.support.select import Select
