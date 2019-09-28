@@ -3,7 +3,7 @@ from selenium import webdriver
 import pytest
 from selenium.webdriver.support.select import Select
 
-def test_registration():
+def test_validate_username():
     # Webdriver Configuration with chrome driver
     driver = webdriver.Chrome(r"D:\selenium\drivers\chromedriver.exe")
 
@@ -13,5 +13,8 @@ def test_registration():
 
     # Maximize browser window
     driver.maximize_window()
-
+    values = ['abc', 'abcd', 'ab', 'abcde', '123123', '32434']
+    for val in values:
+        driver.find_element_by_name("username").send_keys(val)
+        
     print(driver.title)
