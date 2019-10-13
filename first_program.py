@@ -5,7 +5,7 @@ import math
 # Assigning Value To variable
 a = 10
 b = 20
-name = "ABC"
+name = "ABC"+a
 
 def my_function(x, y):
     '''
