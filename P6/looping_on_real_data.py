@@ -19,4 +19,45 @@ personDetails = [
                  {'name': 'Ford', 'models': ['Fiesta', 'Focus', 'Mustang']},
                  {'name': 'BMW', 'models': ['320', 'X3', 'X5']},
                 {'name': 'Maruti', 'models': ['800', 'Suzuki']}]}
-            ] 
+            ]
+result = 0
+names = list()
+for person in personDetails:
+    for car in person['cars']:
+        if car['name']=='Fiat' and ('Panda' in car['models']):
+            print(person['name'])
+            result = result + 1
+            names.append(person['name'])
+
+print(names)
+print(result)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
