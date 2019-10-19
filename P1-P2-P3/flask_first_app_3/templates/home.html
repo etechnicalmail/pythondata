@@ -17,7 +17,7 @@
 			<th>age</th>
 		</thead>
 		{% for student in data.sdata %}
-			{% if student.age < 20 %}
+			{% if student.age > 15 %}
 			<tr>
 				<td>{{student.name}}</td>
 				<td>{{student.ph}}</td>
