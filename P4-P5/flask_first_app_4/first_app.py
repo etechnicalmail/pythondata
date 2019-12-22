@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, session, url_for, redirect, request
 from flask_wtf import Form
 from wtforms import validators, ValidationError
 import wtforms
@@ -25,7 +25,10 @@ class ContactForm(Form):
 
 @app.route('/')
 def home():
-	return redirect(url_for('login'))
+	if "username" in session:
+		return redirect(url_for('info'))
+	else:
+		return redirect(url_for('login'))
 
 @app.route('/info')
 def info():
@@ -69,6 +72,7 @@ def login():
 		username = request.form['uname']
 		password = request.form['psw']
 		if password == 'abcd':
+			session['username'] = request.form['uname']
 			return redirect(url_for('info'))
 		else:
 			return render_template('login.html', msg='Wrong Credentials')

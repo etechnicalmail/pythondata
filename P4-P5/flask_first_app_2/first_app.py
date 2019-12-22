@@ -8,6 +8,7 @@ def home():
 
 @app.route('/info')
 def info():
+
 	institute_name = "SCODEEN"''
 	student_data = [{'name':'abc','ph':1234,'age':25},
 	{'name':'pqu','ph':123436434,'age':15},
