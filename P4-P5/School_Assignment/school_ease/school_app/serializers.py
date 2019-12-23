@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Tutor
+from .models import Tutor,School,Coaching
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
@@ -7,6 +7,17 @@ from rest_framework.authtoken.models import Token
 class TutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tutor
+        fields = '__all__'
+
+class SchoolSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = School
+        fields = '__all__'
+
+
+class CoachingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coaching
         fields = '__all__'
 
 
