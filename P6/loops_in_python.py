@@ -1,4 +1,4 @@
-'''
+
 n = int(input("Enter Number"))
 
 if n%2 == 0:
@@ -40,7 +40,7 @@ for key, val in d1.items():
       print(key)
       print(val)
     
-'''
+
 l1 = [3,6,18,35,24,55,40]
 l2 = ['aa', 'aaba', 'bca', 'bbc', 'abaab']
 l3 = [[2,2],[2,4],[2,8],[2,16]]

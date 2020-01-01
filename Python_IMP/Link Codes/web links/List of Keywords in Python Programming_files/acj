@@ -1,0 +1,29 @@
+OX_4674641349({
+  "ads":{
+    "chain":1,
+    "medium":"w",
+    "record_tmpl":"https://delivery-asia-northeast-1.openx.net/{medium}/1.0/{rtype}?ph=94ef58655625200a8cfc5b15afcd0b94ad52d590&ts={txn_state}",
+    "pixels":"https://jp-u.openx.net/w/1.0/pd?plm=10&ph=94ef58655625200a8cfc5b15afcd0b94ad52d590&gdpr=0",
+    "oxt": 20.4,
+    "adunits" : [
+      {
+        "auid":"540091098",
+        "chain_timeout":"",
+        "chain":[
+          {
+            "is_fallback":1,
+            "ad_id":"0",
+            "adv_acct_id":"",
+            "width":"300",
+            "height":"250",
+            "html":"<script type=\"text/javascript\">\n    google_ad_client = \"ca-pub-9007421361448641\";\n    google_ad_slot = \"1727976886\";\n    google_ad_width = 300;\n    google_ad_height = 250;\n</script>\n<!-- .2 174571.4 programiz.com ROW tier1 desktop PG Middle Desktop 300x250 -->\n<script type=\"text/javascript\"\nsrc=\"//pagead2.googlesyndication.com/pagead/show_ads.js\">\n</script>",
+            "target":"_blank",
+            "ts":"2DAABBgABAAECAAIBAAsAAgAAAGMcGApNUGh2SjFKUk9rHBbHwZWB6-bw5sEBFsfE5aXOxP2BrwEAHBar67XLw4y0v4UBFvmz4tDCwtGG0wEAForh7bsLFQIALBwVAgAAHCa0i4mDBBUEFQQmoouJgwQW0KoJAAAA",
+            "type":"html",
+            "ad_url":"<script type=\"text/javascript\">\n    google_ad_client = \"ca-pub-9007421361448641\";\n    google_ad_slot = \"1727976886\";\n    google_ad_width = 300;\n    google_ad_height = 250;\n</script>\n<!-- .2 174571.4 programiz.com ROW tier1 desktop PG Middle Desktop 300x250 -->\n<script type=\"text/javascript\"\nsrc=\"//pagead2.googlesyndication.com/pagead/show_ads.js\">\n</script>"
+          }
+        ]
+      }
+    ]
+  }
+});

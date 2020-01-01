@@ -22,6 +22,11 @@ personDetails = [
             ]
 result = 0
 names = list()
+for person in personDetails:
+    print(f"******* {person['name']} ******")
+    for car in person['cars']:
+        print(f"Name: {car['name']} Models: {car['models']}")
+    
 '''
 for person in personDetails:
     for car in person['cars']:
@@ -53,9 +58,10 @@ for person in personDetails:
     results[person['name']] = model_count
 print(results)
 '''
-    
 
 
+for i in range(5):
+    print("hello")
 
 
 

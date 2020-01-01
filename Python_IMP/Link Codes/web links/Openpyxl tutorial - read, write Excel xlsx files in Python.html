@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://zetcode.com/articles/openpyxl/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Openpyxl tutorial - read, write Excel xlsx files in Python</title>
+
+<link rel="stylesheet" href="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/format3.css" type="text/css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="Python, pyopenxl, Excel, library, learn pyopenxl">
+<meta name="description" content="Openpyxl tutorial shows how to work with
+Excel files in Python using openpyxl library.">
+<meta name="author" content="Jan Bodnar">
+
+<script src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/f(5).txt"></script><script src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/ca-pub-9706709751191532.js.download"></script><script src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/cb=gapi.loaded_1" async=""></script><script src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/cb=gapi(1).loaded_0" async=""></script><script id="facebook-jssdk" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/sdk.js.download"></script><script id="twitter-wjs" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/widgets.js.download"></script><script async="" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/analytics.js.download"></script><script src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/platform.js.download" async="" defer="" gapi_processed="true"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-5536206-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<link rel="preload" href="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/f(6).txt" as="script"><script type="text/javascript" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/f(6).txt"></script><link rel="preload" href="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/f(7).txt" as="script"><script type="text/javascript" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/f(7).txt"></script><script type="text/javascript" charset="utf-8" async="" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/button.3ebb4253c7cb2cc3c9eaac42044fc82c.js.download"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_loader{background-color:#f5f6f7;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:-webkit-sticky;top:0}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_customer_chat_bounce_in_v2{animation-duration:300ms;animation-name:fb_bounce_in_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2{animation-duration:300ms;animation-name:fb_bounce_out_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_v2_mobile_chat_started{animation-duration:300ms;animation-name:fb_bounce_in_v2_mobile_chat_started;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2_mobile_chat_started{animation-duration:300ms;animation-name:fb_bounce_out_v2_mobile_chat_started;transition-timing-function:ease-in}.fb_customer_chat_bubble_pop_in{animation-duration:250ms;animation-name:fb_customer_chat_bubble_bounce_in_animation}.fb_customer_chat_bubble_animated_no_badge{box-shadow:0 3px 12px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_no_badge:hover{box-shadow:0 5px 24px rgba(0, 0, 0, .3)}.fb_customer_chat_bubble_animated_with_badge{box-shadow:-5px 4px 14px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_with_badge:hover{box-shadow:-5px 8px 24px rgba(0, 0, 0, .2)}.fb_invisible_flow{display:inherit;height:0;overflow-x:hidden;width:0}.fb_mobile_overlay_active{background-color:#fff;height:100%;overflow:hidden;position:fixed;visibility:hidden;width:100%}@keyframes fb_bounce_in_v2{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}50%{transform:scale(1.03, 1.03);transform-origin:bottom right}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}}@keyframes fb_bounce_in_v2_mobile_chat_started{0%{opacity:0;top:20px}100%{opacity:1;top:0}}@keyframes fb_bounce_out_v2{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}}@keyframes fb_bounce_out_v2_mobile_chat_started{0%{opacity:1;top:0}100%{opacity:0;top:20px}}@keyframes fb_customer_chat_bubble_bounce_in_animation{0%{bottom:6pt;opacity:0;transform:scale(0, 0);transform-origin:center}70%{bottom:18pt;opacity:1;transform:scale(1.2, 1.2)}100%{transform:scale(1, 1)}}</style></head>
+
+<body>
+
+<div class="container">
+
+<div id="wide_ad" class="rtow" style="margin: 0px; padding: 0px; border-width: 0px;">
+<script async="" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/f(8).txt"></script>
+<!-- 160x600, August 2011 -->
+<ins class="adsbygoogle" style="display: inline-block; width: 0px; height: 0px;" data-ad-client="ca-pub-9706709751191532" data-ad-slot="2484182563" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display: inline-table; border: none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 0px; background-color: transparent;"><ins id="aswift_0_anchor" style="display: block; border: none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 0px; background-color: transparent; overflow: hidden; opacity: 0;"><iframe width="160" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:160px;height:600px;" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/saved_resource(1).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div id="ebooks" class="ltow">
+    
+<h2>Ebooks</h2>
+
+<ul>
+<li><a href="http://zetcode.com/ebooks/advancedpyqt5/">PyQt5 ebook</a></li>
+<li><a href="http://zetcode.com/ebooks/tkinter/">Tkinter ebook</a></li>
+<li><a href="http://zetcode.com/ebooks/sqlitepython/">SQLite Python</a></li>
+<li><a href="http://zetcode.com/ebooks/advancedwxpython/">wxPython ebook</a></li>
+<li><a href="http://zetcode.com/ebooks/windowsapi/">Windows API ebook</a></li>
+<li><a href="http://zetcode.com/ebooks/advancedjavaswing/">Java Swing ebook</a></li>
+<li><a href="http://zetcode.com/ebooks/mysqljava/">MySQL Java ebook</a></li>
+</ul>
+
+</div>
+
+<div class="content">
+
+<header>
+ 
+<nav>
+<a href="http://zetcode.com/" title="Home">Home</a>
+<a class="nav_r" title="Subscribe to ZetCode news" href="http://zetcode.us13.list-manage.com/subscribe?u=9def9ccd4c70dbbaf691f90fc&amp;id=6556210f80">Subscribe</a>
+</nav>
+
+</header>
+
+
+<h1>Openpyxl tutorial</h1>
+
+<p>
+In this tutorial we show how to work with Excel files in Python using 
+openpyxl library.
+</p>
+
+<div class="social">
+
+<div class="fb-like fb_iframe_widget" data-href="http://zetcode.com/articles/openpyxl/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=&amp;container_width=705&amp;href=http%3A%2F%2Fzetcode.com%2Farticles%2Fopenpyxl%2F&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=true&amp;show_faces=true"><span style="vertical-align: bottom; width: 112px; height: 20px;"><iframe name="f231a10c1751564" width="1000px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" title="fb:like Facebook Social Plugin" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/like.html" style="border: none; visibility: visible; width: 112px; height: 20px;" class=""></iframe></span></div>
+
+<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 32px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 32px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1539071861113" name="I0_1539071861113" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/fastbutton.html" data-gapiattached="true" title="G+"></iframe></div>
+
+<div class="twitter">
+<iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 60px; height: 20px;" title="Twitter Tweet Button" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/tweet_button.d8c3ececb2f3e7c69df1a2b5ba9241a5.en.html"></iframe>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id))
+{js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</div>
+
+</div>
+
+<h2>Openpyxl</h2>
+
+<p>
+The <dfn>openpyxl</dfn> is a Python library to read and write Excel 2010 xlsx/xlsm/xltx/xltm files.
+</p>
+
+<div class="big_hor">
+<script async="" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/f(8).txt"></script>
+<!-- big_horizontal -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-9706709751191532" data-ad-slot="2904953388" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:728px;height:90px;" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/saved_resource(2).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<h2>Excel xlsx</h2>
+
+<p>
+In this tutorial, we will work with xlsx files. The xlsx is a file extension for an 
+open XML spreadsheet file format used by Microsoft Excel. The xlsm files support macros.
+The xls format is a proprietary binary format while xlsx is based on Office Open XML format.
+</p>
+
+<pre>$ sudo pip3 install openpyxl
+</pre>
+
+<p>
+We install <code>openpyxl</code> with the <code>pip3</code> tool.
+</p>
+
+
+<h2>Creating a new file</h2>
+
+<p>
+In the first example, we will create a new xlsx file with <code>openpyxl</code>.
+</p>
+
+<div class="codehead">write_xlsx.py</div>
+<pre class="code">#!/usr/bin/python3
+
+from openpyxl import Workbook
+import time
+
+book = Workbook()
+sheet = book.active
+
+sheet['A1'] = 56
+sheet['A2'] = 43
+
+now = time.strftime("%x")
+sheet['A3'] = now
+
+book.save("sample.xlsx")
+</pre>
+
+<p>
+In the example, we create a new xlsx file. We write data into three cells.
+</p>
+
+<pre class="explanation">from openpyxl import Workbook
+</pre>
+
+<p>
+From the <code>openpyxl</code> module, we import the <code>Workbook</code> class. 
+A workbook is the container for all other parts of the document.
+</p>
+
+<pre class="explanation">book = Workbook()
+</pre>
+
+<p>
+We create a new workbook. A workbook is always created with at least one worksheet.
+</p>
+
+<pre class="explanation">sheet = book.active
+</pre>
+
+<p>
+We get the reference to the active sheet.
+</p>
+
+<pre class="explanation">sheet['A1'] = 56
+sheet['A2'] = 43
+</pre>
+
+<p>
+We write numerical data to cells A1 and A2.
+</p>
+
+<pre class="explanation">now = time.strftime("%x")
+sheet['A3'] = now
+</pre>
+
+<p>
+We write current date to the cell A3.
+</p>
+
+<pre class="explanation">book.save("sample.xlsx")
+</pre>
+
+<p>
+We write the contents to the <code>sample.xlsx</code> file with 
+the <code>save()</code> method.
+</p>
+
+<figure>
+<img src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/newfile.png" alt="New file">
+<figcaption>Figure: New file</figcaption>
+</figure>
+
+
+<h2>Writing to a cell</h2>
+
+<p>
+There are two basic ways to write to a cell: using a key of a
+worksheet such as A1 or D3, or using a row and column notation
+with the <code>cell()</code> method.
+</p>
+
+<div class="codehead">write2cell.py</div>
+<pre class="code">#!/usr/bin/python3
+
+from openpyxl import Workbook
+
+book = Workbook()
+sheet = book.active
+
+sheet['A1'] = 1
+sheet.cell(row=2, column=2).value = 2
+
+book.save('write2cell.xlsx')
+</pre>
+
+<p>
+In the example, we write two values to two cells.
+</p>
+
+<pre class="explanation">sheet['A1'] = 1
+</pre>
+
+<p>
+Here, we assing a numerical value to the A1 cell.
+</p>
+
+<pre class="explanation">sheet.cell(row=2, column=2).value = 2
+</pre>
+
+<p>
+In this line, we write to cell B2 with the row and column notation.
+</p>
+
+
+<h2>Appending values</h2>
+
+<p>
+With the <code>append()</code> method, we can append a group of 
+values at the bottom of the current sheet.
+</p>
+
+<div class="codehead">appending_values.py</div>
+<pre class="code">#!/usr/bin/python3
+
+from openpyxl import Workbook
+
+book = Workbook()
+sheet = book.active
+
+rows = (
+    (88, 46, 57),
+    (89, 38, 12),
+    (23, 59, 78),
+    (56, 21, 98),
+    (24, 18, 43),
+    (34, 15, 67)
+)
+
+for row in rows:
+    sheet.append(row)
+
+book.save('appending.xlsx')
+</pre>
+
+<p>
+In the example, we append three columns of data into
+the current sheet.
+</p>
+
+<pre class="explanation">rows = (
+    (88, 46, 57),
+    (89, 38, 12),
+    (23, 59, 78),
+    (56, 21, 98),
+    (24, 18, 43),
+    (34, 15, 67)
+)
+</pre>
+
+<p>
+The data is stored in a tuple of tuples.
+</p>
+
+<pre class="explanation">for row in rows:
+    sheet.append(row)
+</pre>
+
+<p>
+We go through the container row by row and insert
+the data row with the <code>append()</code> method.
+</p>
+
+
+<h2>Reading a cell</h2>
+
+<p>
+In the following example, we read the previously written data 
+from the <code>sample.xlsx</code> file.
+</p>
+
+<div class="codehead">read_cells.py</div>
+<pre class="code">#!/usr/bin/python3
+
+import openpyxl
+
+book = openpyxl.load_workbook('sample.xlsx')
+
+sheet = book.active
+
+a1 = sheet['A1']
+a2 = sheet['A2']
+a3 = sheet.cell(row=3, column=1)
+
+print(a1.value)
+print(a2.value) 
+print(a3.value)
+</pre>
+
+<p>
+The example loads an existing xlsx file and reads three cells.
+</p>
+
+<pre class="explanation">book = openpyxl.load_workbook('sample.xlsx')
+</pre>
+
+<p>
+The file is opened with the <code>load_workbook()</code> method.
+</p>
+
+<pre class="explanation">a1 = sheet['A1']
+a2 = sheet['A2']
+a3 = sheet.cell(row=3, column=1)
+</pre>
+
+<p>
+We read the contents of the A1, A2, and A3 cells. In the third line,
+we use the <code>cell()</code> method to get the value of A3 cell.
+</p>
+
+<pre>$ ./read_cells.py 
+56
+43
+10/26/16
+</pre>
+
+<p>
+This is the output of the example.
+</p>
+
+
+<h2>Reading multiple cells</h2>
+
+<p>
+We have the following data sheet:
+</p>
+
+<figure>
+<img src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/items.png" alt="Items">
+<figcaption>Figure: Items</figcaption>
+</figure>
+
+<p>
+We read the data using a range operator.
+</p>
+
+<div class="codehead">read_cells2.py</div>
+<pre class="code">#!/usr/bin/python3
+
+import openpyxl
+
+book = openpyxl.load_workbook('items.xlsx')
+
+sheet = book.active
+
+cells = sheet['A1': 'B6']
+
+for c1, c2 in cells:
+    print("{0:8} {1:8}".format(c1.value, c2.value))
+</pre>
+
+<p>
+In the example, we read data from two columns using a range operation.
+</p>
+
+<pre class="explanation">cells = sheet['A1': 'B6']
+</pre>
+
+<p>
+In this line, we read data from cells A1 - B6.
+</p>
+
+<pre class="explanation">for c1, c2 in cells:
+    print("{0:8} {1:8}".format(c1.value, c2.value))
+</pre>
+
+<p>
+The <code>format()</code> function is used for neat output of data
+on the console.
+</p>
+
+<pre>$ ./read_cells2.py 
+Items    Quantity
+coins          23
+chairs          3
+pencils         5
+bottles         8
+books          30
+</pre>
+
+<p>
+This is the output of the program.
+</p>
+
+
+<h2>Iterating by rows</h2>
+
+<p>
+The <code>iter_rows()</code> method return cells from the 
+worksheet as rows.
+</p>
+
+<div class="codehead">iterating_by_rows.py</div>
+<pre class="code">#!/usr/bin/python3
+
+from openpyxl import Workbook
+
+book = Workbook()
+sheet = book.active
+
+rows = (
+    (88, 46, 57),
+    (89, 38, 12),
+    (23, 59, 78),
+    (56, 21, 98),
+    (24, 18, 43),
+    (34, 15, 67)
+)
+
+for row in rows:
+    sheet.append(row)
+    
+for row in sheet.iter_rows(min_row=1, min_col=1, max_row=6, max_col=3):
+    for cell in row:
+        print(cell.value, end=" ")
+    print()    
+
+book.save('iterbyrows.xlsx')
+</pre>
+
+<p>
+The example iterates over data row by row.
+</p>
+
+<pre class="explanation">for row in sheet.iter_rows(min_row=1, min_col=1, max_row=6, max_col=3):
+</pre>
+
+<p>
+We provide the boundaries for the iteration.
+</p>
+
+<pre>$ ./iterating_by_rows.py 
+88 46 57 
+89 38 12 
+23 59 78 
+56 21 98 
+24 18 43 
+34 15 67 
+</pre>
+
+<p>
+This is the output of the example.
+</p>
+
+
+<h2>Iterating by columns</h2>
+
+<p>
+The <code>iter_cols()</code> method return cells from the 
+worksheet as columns.
+</p>
+
+<div class="codehead">iterating_by_columns.py</div>
+<pre class="code">#!/usr/bin/python3
+
+from openpyxl import Workbook
+
+book = Workbook()
+sheet = book.active
+
+rows = (
+    (88, 46, 57),
+    (89, 38, 12),
+    (23, 59, 78),
+    (56, 21, 98),
+    (24, 18, 43),
+    (34, 15, 67)
+)
+
+for row in rows:
+    sheet.append(row)
+    
+for row in sheet.iter_cols(min_row=1, min_col=1, max_row=6, max_col=3):
+    for cell in row:
+        print(cell.value, end=" ")
+    print()    
+
+book.save('iterbycols.xlsx')
+</pre>
+
+<p>
+The example iterates over data column by column.
+</p>
+
+<pre>$ ./iterating_by_columns.py 
+88 89 23 56 24 34 
+46 38 59 21 18 15 
+57 12 78 98 43 67 
+</pre>
+
+<p>
+This is the output of the example.
+</p>
+
+
+<h2>Statistics</h2>
+
+<p>
+For the next example, we need to create a xlsx file containing
+numbers. For instance, we have created 25 rows of numbers in 
+10 columns with the <code>RANDBETWEEN()</code> function.
+</p>
+
+<div class="codehead">mystats.py</div>
+<pre class="code">#!/usr/bin/python3
+
+import openpyxl
+import statistics as stats
+
+book = openpyxl.load_workbook('numbers.xlsx', data_only=True)
+
+sheet = book.active
+
+rows = sheet.rows
+
+values = []
+
+for row in rows:
+    for cell in row:
+        values.append(cell.value)
+
+print("Number of values: {0}".format(len(values)))
+print("Sum of values: {0}".format(sum(values)))
+print("Minimum value: {0}".format(min(values)))
+print("Maximum value: {0}".format(max(values)))
+print("Mean: {0}".format(stats.mean(values)))
+print("Median: {0}".format(stats.median(values)))
+print("Standard deviation: {0}".format(stats.stdev(values)))
+print("Variance: {0}".format(stats.variance(values)))
+</pre>
+
+<p>
+In the example, we read all values from the sheet and compute some basic statistics.
+</p>
+
+<pre class="explanation">import statistics as stats
+</pre>
+
+<p>
+The <code>statistics</code> module is imported to provide some statistical functions, 
+such as median and variance.
+</p>
+
+<pre class="explanation">book = openpyxl.load_workbook('numbers.xlsx', data_only=True)
+</pre>
+
+<p>
+Using the <code>data_only</code> option, we get the values from the cells, not the formula.
+</p>
+
+<pre class="explanation">rows = sheet.rows
+</pre>
+
+<p>
+We get all the rows of cells that are not empty.
+</p>
+
+<pre class="explanation">for row in rows:
+    for cell in row:
+        values.append(cell.value)
+</pre>
+
+<p>
+In two for loops, we form a list of integer values from the cells.
+</p>
+
+<pre class="explanation">print("Number of values: {0}".format(len(values)))
+print("Sum of values: {0}".format(sum(values)))
+print("Minimum value: {0}".format(min(values)))
+print("Maximum value: {0}".format(max(values)))
+print("Mean: {0}".format(stats.mean(values)))
+print("Median: {0}".format(stats.median(values)))
+print("Standard deviation: {0}".format(stats.stdev(values)))
+print("Variance: {0}".format(stats.variance(values)))
+</pre>
+
+<p>
+We compute and print mathematical statistics about the values. Some of 
+the functions are built-in, others are imported with the <code>statistics</code>
+module.
+</p>
+
+<pre>$ ./mystats.py 
+Number of values: 312
+Sum of values: 15877
+Minimum value: 0
+Maximum value: 100
+Mean: 50.88782051282051
+Median: 54.0
+Standard deviation: 28.459203819700967
+Variance: 809.9262820512821
+</pre>
+
+<p>
+This is a sample output.
+</p>
+
+
+<h2>Dimensions</h2>
+
+<p>
+To get those cells that actually contain data, we can use dimensions.
+</p>
+
+<div class="codehead">dimensions.py</div>
+<pre class="code">#!/usr/bin/python3
+
+from openpyxl import Workbook
+
+book = Workbook()
+sheet = book.active
+
+sheet['A3'] = 39
+sheet['B3'] = 19
+
+rows = [
+    (88, 46),
+    (89, 38),
+    (23, 59),
+    (56, 21),
+    (24, 18),
+    (34, 15)
+]
+
+for row in rows:
+    sheet.append(row)
+
+print(sheet.dimensions)
+print("Minimum row: {0}".format(sheet.min_row))
+print("Maximum row: {0}".format(sheet.max_row))
+print("Minimum column: {0}".format(sheet.min_column))
+print("Maximum column: {0}".format(sheet.max_column))
+
+for c1, c2 in sheet[sheet.dimensions]:
+    print(c1.value, c2.value)
+
+book.save('dimensions.xlsx')
+</pre>
+
+<p>
+The example calculates the dimensions of two columns of data.
+</p>
+
+<pre class="explanation">sheet['A3'] = 39
+sheet['B3'] = 19
+
+rows = [
+    (88, 46),
+    (89, 38),
+    (23, 59),
+    (56, 21),
+    (24, 18),
+    (34, 15)
+]
+
+for row in rows:
+    sheet.append(row)
+</pre>
+
+<p>
+We add data to the worksheet. Note that we start adding from
+the third row.
+</p>
+
+<pre class="explanation">print(sheet.dimensions)
+</pre>
+
+<p>
+The <code>dimensions</code> property returns the top-left and bottom-right
+cell of the area of non-empty cells.
+</p>
+
+<pre class="explanation">print("Minimum row: {0}".format(sheet.min_row))
+print("Maximum row: {0}".format(sheet.max_row))
+</pre>
+
+<p>
+Witht the <code>min_row</code> and <code>max_row</code> properties, we get the minimum 
+and maximum row containing data. 
+</p>
+
+<pre class="explanation">print("Minimum column: {0}".format(sheet.min_column))
+print("Maximum column: {0}".format(sheet.max_column))
+</pre>
+
+<p>
+With the <code>min_column</code> and <code>max_column</code> properties, we get the minimum 
+and maximum column containing data. 
+</p>
+
+<pre class="explanation">for c1, c2 in sheet[sheet.dimensions]:
+    print(c1.value, c2.value)
+</pre>
+
+<p>
+We iterate through the data and print it to the console.
+</p>
+
+<pre>$ ./dimensions.py 
+A3:B9
+Minimum row: 3
+Maximum row: 9
+Minimum column: 1
+Maximum column: 2
+39 19
+88 46
+89 38
+23 59
+56 21
+24 18
+34 15
+</pre>
+
+<p>
+This is the ouput of the example.
+</p>
+
+
+<h2>Sheets</h2>
+
+<p>
+Each workbook can have multiple sheets. 
+</p>
+
+<figure>
+<img src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/sheets.png" alt="Sheets">
+<figcaption>Figure: Sheets</figcaption>
+</figure>
+
+<p>
+Let's have a workbook with these three sheets.
+</p>
+
+<div class="codehead">sheets.py</div>
+<pre class="code">#!/usr/bin/python3
+
+import openpyxl
+
+book = openpyxl.load_workbook('sheets.xlsx')
+
+print(book.get_sheet_names())
+
+active_sheet = book.active
+print(type(active_sheet))
+
+sheet = book.get_sheet_by_name("March")
+print(sheet.title)
+</pre>
+
+<p>
+The program works with Excel sheets.
+</p>
+
+<pre class="explanation">print(book.get_sheet_names())
+</pre>
+
+<p>
+The <code>get_sheet_names()</code> method returns the names of
+available sheets in a workbook.
+</p>
+
+<pre class="explanation">active_sheet = book.active
+print(type(active_sheet))
+</pre>
+
+<p>
+We get the active sheet and print its type to the terminal.
+</p>
+
+<pre class="explanation">sheet = book.get_sheet_by_name("March")
+</pre>
+
+<p>
+We get a reference to a sheet with the <code>get_sheet_by_name()</code> method.
+</p>
+
+<pre class="explanation">print(sheet.title)
+</pre>
+
+<p>
+The title of the retrieved sheet is printed to the terminal.
+</p>
+
+<pre>$ ./sheets.py 
+['January', 'February', 'March']
+&lt;class 'openpyxl.worksheet.worksheet.Worksheet'&gt;
+March
+</pre>
+
+<p>
+This is the output of the program.
+</p>
+
+<div class="codehead">sheets2.py</div>
+<pre class="code">#!/usr/bin/python3
+
+import openpyxl
+
+book = openpyxl.load_workbook('sheets.xlsx')
+
+book.create_sheet("April")
+
+print(book.sheetnames)
+
+sheet1 = book.get_sheet_by_name("January")
+book.remove_sheet(sheet1)
+
+print(book.sheetnames)
+
+book.create_sheet("January", 0)
+print(book.sheetnames)
+
+book.save('sheets2.xlsx')
+</pre>
+
+<p>
+In this example, we create a new sheet. 
+</p>
+
+<pre class="explanation">book.create_sheet("April")
+</pre>
+
+<p>
+A new sheet is created with the <code>create_sheet()</code> method.
+</p>
+
+<pre class="explanation">print(book.sheetnames)
+</pre>
+
+<p>
+The sheet names can be shown with the <code>sheetnames</code> attribute as well.
+</p>
+
+<pre class="explanation">book.remove_sheet(sheet1)
+</pre>
+
+<p>
+A sheet can be removed with the <code>remove_sheet()</code> method.
+</p>
+
+<pre class="explanation">book.create_sheet("January", 0)
+</pre>
+
+<p>
+A new sheet can be created at the specified position; in our case, 
+we create a new sheet at position with index 0.
+</p>
+
+<pre>$ ./sheets2.py 
+['January', 'February', 'March', 'April']
+['February', 'March', 'April']
+['January', 'February', 'March', 'April']
+</pre>
+
+<p>
+This is the output of the program.
+</p>
+
+<p>
+It is possible to change the background colour of a worksheet.
+</p>
+
+<div class="codehead">sheets3.py</div>
+<pre class="code">#!/usr/bin/python3
+
+import openpyxl
+
+book = openpyxl.load_workbook('sheets.xlsx')
+
+sheet = book.get_sheet_by_name("March")
+sheet.sheet_properties.tabColor = "0072BA"
+
+book.save('sheets3.xlsx')
+</pre>
+
+<p>
+The example modifies the background colour of the sheet titled
+"March".
+</p>
+
+<pre class="explanation">sheet.sheet_properties.tabColor = "0072BA"
+</pre>
+
+<p>
+We change the <code>tabColor</code> property to a new colour.
+</p>
+
+<figure>
+<img src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/sheet_background_colour.png" alt="Background colour of a worksheet">
+<figcaption>Figure: Background colour of a worksheet</figcaption>
+</figure>
+
+<p>
+The background colour of the third worksheet has been changed to some blue
+colour.
+</p>
+
+
+<h2>Merging cells</h2>
+
+<p>
+Cells can be merged with the <code>merge_cells()</code> method and unmerged
+with the <code>unmerge_cells()</code> method. When we merge cells, all cells 
+but the top-left one are removed from the worksheet.
+</p>
+
+<div class="codehead">merging_cells.py</div>
+<pre class="code">#!/usr/bin/python3
+
+from openpyxl import Workbook
+from openpyxl.styles import Alignment
+
+book = Workbook()
+sheet = book.active
+
+sheet.merge_cells('A1:B2')
+
+cell = sheet.cell(row=1, column=1)
+cell.value = 'Sunny day'
+cell.alignment = Alignment(horizontal='center', vertical='center')
+
+book.save('merging.xlsx')
+</pre>
+
+<p>
+In the example, we merge four cells: A1, B1, A2, and B2. The text in the 
+final cell is centered.
+</p>
+
+<pre class="explanation">from openpyxl.styles import Alignment
+</pre>
+
+<p>
+In order to center a text in the final cell, we use the <code>Alignment</code>
+class from the <code>openpyxl.styles</code> module.
+</p>
+
+<pre class="explanation">sheet.merge_cells('A1:B2')
+</pre>
+
+<p>
+We merge four cells with the <code>merge_cells()</code> method.
+</p>
+
+<pre class="explanation">cell = sheet.cell(row=1, column=1)
+</pre>
+
+<p>
+We get the final cell.
+</p>
+
+<pre class="explanation">cell.value = 'Sunny day'
+cell.alignment = Alignment(horizontal='center', vertical='center')
+</pre>
+
+<p>
+We set text to the merged cell and update its alignment.
+</p>
+
+<figure>
+<img src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/merged_cells.png" alt="Merged cells">
+<figcaption>Figure: Merged cells</figcaption>
+</figure>
+
+
+<h2>Freezing panes</h2>
+
+<p>
+When we freeze panes, we  keep an area of a worksheet visible while scrolling to
+another area of the worksheet.
+</p>
+
+<div class="codehead">freezing.py</div>
+<pre class="code">#!/usr/bin/python3
+
+from openpyxl import Workbook
+from openpyxl.styles import Alignment
+
+book = Workbook()
+sheet = book.active
+
+sheet.freeze_panes = 'B2'
+
+book.save('freezing.xlsx')
+</pre>
+
+<p>
+The example freezes panes by the cell B2.
+</p>
+
+<pre class="explanation">sheet.freeze_panes = 'B2'
+</pre>
+
+<p>
+To freeze panes, we use the <code>freeze_panes</code> property.
+</p>
+
+
+<h2>Formulas</h2>
+
+<p>
+The next example shows how to use formulas. The <code>openpyxl</code> does 
+not do calculations; it writes formulas into cells.
+</p>
+
+<div class="codehead">formulas.py</div>
+<pre class="code">#!/usr/bin/python3
+
+from openpyxl import Workbook
+
+book = Workbook()
+sheet = book.active
+
+rows = (
+    (34, 26),
+    (88, 36),
+    (24, 29),
+    (15, 22),
+    (56, 13),
+    (76, 18)
+)
+
+for row in rows:
+    sheet.append(row)
+
+cell = sheet.cell(row=7, column=2)
+cell.value = "=SUM(A1:B6)"
+cell.font = cell.font.copy(bold=True)
+
+book.save('formulas.xlsx')
+</pre>
+
+<p>
+In the example, we calculate the sum of all values
+with the <code>SUM()</code> function and style the
+output in bold font.
+</p>
+
+<pre class="explanation">rows = (
+    (34, 26),
+    (88, 36),
+    (24, 29),
+    (15, 22),
+    (56, 13),
+    (76, 18)
+)
+
+for row in rows:
+    sheet.append(row)
+</pre>
+
+<p>
+We create two columns of data.
+</p>
+
+<pre class="explanation">cell = sheet.cell(row=7, column=2)
+</pre>
+
+<p>
+We get the cell where we show the result of the calculation.
+</p>
+
+<pre class="explanation">cell.value = "=SUM(A1:B6)"
+</pre>
+
+<p>
+We write a formula into the cell.
+</p>
+
+<pre class="explanation">cell.font = cell.font.copy(bold=True)
+</pre>
+
+<p>
+We change the font style.
+</p>
+
+<figure>
+<img src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/formulas.png" alt="Calculating the sum of values">
+<figcaption>Figure: Calculating the sum of values</figcaption>
+</figure>
+
+
+<h2>Images</h2>
+
+<p>
+In the following example, we show how to insert an image into a sheet.
+</p>
+
+<div class="codehead">write_image.py</div>
+<pre class="code">#!/usr/bin/python3
+
+from openpyxl import Workbook
+from openpyxl.drawing.image import Image
+
+book = Workbook()
+sheet = book.active
+
+img = Image("icesid.png")
+sheet['A1'] = 'This is Sid'
+
+sheet.add_image(img, 'B2')
+
+book.save("sheet_image.xlsx")
+</pre>
+
+<p>
+In the example, we write an image into a sheet. 
+</p>
+
+<pre class="explanation">from openpyxl.drawing.image import Image
+</pre>
+
+<p>
+We work with the <code>Image</code> class from the 
+<code>openpyxl.drawing.image</code> module.
+</p>
+
+<pre class="explanation">img = Image("icesid.png")
+</pre>
+
+<p>
+A new <code>Image</code> class is created. The <code>icesid.png</code>
+image is located in the current working directory.
+</p>
+
+<pre class="explanation">sheet.add_image(img, 'B2')
+</pre>
+
+<p>
+We add a new image with the <code>add_image()</code> method.
+</p>
+
+
+<h2>Charts</h2>
+
+<p>
+The <code>openpyxl</code> library supports creation of various charts, including 
+bar charts, line charts, area charts, bubble charts, scatter charts, and pie charts.
+</p>
+
+<p>
+According to the documentation, <code>openpyxl</code> supports chart creation within 
+a worksheet only. Charts in existing workbooks will be lost.
+</p>
+
+<div class="codehead">create_bar_chart.py</div>
+<pre class="code">#!/usr/bin/python3
+
+from openpyxl import Workbook
+from openpyxl.chart import (
+    Reference,
+    Series,
+    BarChart
+)
+
+book = Workbook()
+sheet = book.active
+
+rows = [
+    ("USA", 46),
+    ("China", 38),
+    ("UK", 29),
+    ("Russia", 22),
+    ("South Korea", 13),
+    ("Germany", 11)
+]
+
+for row in rows:
+    sheet.append(row)
+    
+data = Reference(sheet, min_col=2, min_row=1, max_col=2, max_row=6)
+categs = Reference(sheet, min_col=1, min_row=1, max_row=6)
+
+chart = BarChart()
+chart.add_data(data=data)
+chart.set_categories(categs)
+
+chart.legend = None
+chart.y_axis.majorGridlines = None
+chart.varyColors = True
+chart.title = "Olympic Gold medals in London"
+
+sheet.add_chart(chart, "A8")    
+
+book.save("bar_chart.xlsx")
+</pre>
+
+<p>
+In the example, we create a bar chart to show the number of Olympic 
+gold medals per country in London 2012.
+</p>
+
+<pre class="explanation">from openpyxl.chart import (
+    Reference,
+    Series,
+    BarChart
+)
+</pre>
+
+<p>
+The <code>openpyxl.chart</code> module has tools to work with charts.
+</p>
+
+<pre class="explanation">book = Workbook()
+sheet = book.active
+</pre>
+
+<p>
+A new workbook is created.
+</p>
+
+<pre class="explanation">rows = [
+    ("USA", 46),
+    ("China", 38),
+    ("UK", 29),
+    ("Russia", 22),
+    ("South Korea", 13),
+    ("Germany", 11)
+]
+
+for row in rows:
+    sheet.append(row)
+</pre>
+
+<p>
+We create some data and add it to the cells of the active sheet.
+</p>
+
+<pre class="explanation">data = Reference(sheet, min_col=2, min_row=1, max_col=2, max_row=6)
+</pre>
+
+<p>
+With the <code>Reference</code> class, we refer to the rows in the sheet that
+represent data. In our case, these are the numbers of olympic gold medals.
+</p>
+
+<pre class="explanation">categs = Reference(sheet, min_col=1, min_row=1, max_row=6)
+</pre>
+
+<p>
+We create a category axis. A category axis is an axis with the data 
+treated as a sequence of non-numerical text labels. In our case, we have
+text labels representing names of countries.
+</p>
+
+<pre class="explanation">chart = BarChart()
+chart.add_data(data=data)
+chart.set_categories(categs)
+</pre>
+
+<p>
+We create a bar chart and set it data and categories.
+</p>
+
+<pre class="explanation">chart.legend = None
+chart.y_axis.majorGridlines = None
+</pre>
+
+<p>
+Using <code>legend</code> and <code>majorGridlines</code> attributes, we
+turn off the legends and major grid lines.
+</p>
+
+<pre class="explanation">chart.varyColors = True
+</pre>
+
+<p>
+Setting <code>varyColors</code> to <code>True</code>, each bar has a different
+colour.
+</p>
+
+<pre class="explanation">chart.title = "Olympic Gold medals in London"
+</pre>
+
+<p>
+A title is set for the chart.
+</p>
+
+<pre class="explanation">sheet.add_chart(chart, "A8")   
+</pre>
+
+<p>
+The created chart is added to the sheet with the <code>add_chart()</code> method.
+</p>
+
+<figure>
+<img src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/bar_chart.png" alt="Bar chart">
+<figcaption>Figure: Bar chart</figcaption>
+</figure>
+
+<p>
+In this tutorial, we have worked with the openpyxl library. We have read data from an Excel file, written
+data to an Excel file.
+</p>
+
+<div class="big_hor">
+<script async="" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/f(8).txt"></script>
+<!-- big_horizontal -->
+<ins class="adsbygoogle" style="display: inline-block; width: 728px; height: 0px;" data-ad-client="ca-pub-9706709751191532" data-ad-slot="2904953388" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display: inline-table; border: none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 728px; background-color: transparent;"><ins id="aswift_2_anchor" style="display: block; border: none; height: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 728px; background-color: transparent; overflow: hidden; opacity: 0;"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;width:728px;height:90px;" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/saved_resource(3).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<p>
+You might also be interested in the following related tutorials: 
+<a href="http://zetcode.com/lang/python/">Python tutorial</a>, 
+<a href="http://zetcode.com/python/csv/">Python CSV tutorial</a>,
+<a href="http://zetcode.com/python/simplejson/">Python simplejson tutorial</a>, 
+<a href="http://zetcode.com/python/pymongo/">PyMongo tutorial</a>, 
+<a href="http://zetcode.com/web/pythonrequests/">Python requests tutorial</a>,  and
+<a href="http://zetcode.com/articles/pythonlistcomprehensions/">Python list comprehensions</a>.
+</p>
+
+<footer>
+
+<nav>
+<a href="http://zetcode.com/">Home</a> 
+<a href="http://zetcode.com/articles/openpyxl/#">Top of Page</a>
+</nav>
+
+<div class="signature">
+<a href="http://zetcode.com/">ZetCode</a> last modified October 27, 2016  <span class="copyright">© 2007 - 2018 Jan Bodnar</span>
+<span>Follow on <a href="https://www.facebook.com/zetcode7/">Facebook</a></span>
+</div>
+
+</footer>
+
+</div> <!-- content -->
+
+</div> <!-- container -->
+
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/trnHszv6jVd.html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+<iframe scrolling="no" frameborder="0" allowtransparency="true" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/widget_iframe.d8c3ececb2f3e7c69df1a2b5ba9241a5.html" title="Twitter settings iframe" style="display: none;"></iframe><iframe id="google_osd_static_frame_9562362139061" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/saved_resource(4).html"></iframe><iframe name="oauth2relay359511922" id="oauth2relay359511922" src="./Openpyxl tutorial - read, write Excel xlsx files in Python_files/postmessageRelay.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>
