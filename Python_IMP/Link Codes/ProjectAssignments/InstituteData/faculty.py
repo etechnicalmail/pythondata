@@ -1,2 +1,0 @@
-class Faculty:
-    pass
